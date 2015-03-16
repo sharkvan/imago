@@ -1,9 +1,6 @@
-//package std.haxe.io;
-//typedef StringInput = std.haxe.io.StringInput;
-//typedef stdin = Sys.stdin;
 import Sys.*;
 
-class Lister {
+class Lister_Sys {
   static public function main():Void {
     trace("Provide a source URL: ");
     var url = stdin().readLine();
