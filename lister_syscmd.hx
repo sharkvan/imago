@@ -1,6 +1,6 @@
 import Sys.*;
 
-class Lister_Sys {
+class Lister_SysCmd {
   static var defaultUrl : String = "http://www.google.com";
 
   static public function main():Void {
