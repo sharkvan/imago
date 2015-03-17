@@ -2,6 +2,7 @@ package test;
 
 import haxe.unit.TestCase;
 using StringTools;
+using test.TestCaseExtender;
 
 class Lister_Test extends TestCase
 {
@@ -26,5 +27,10 @@ class Lister_Test extends TestCase
         var host = "http://www.google.com/";
         var actual = Lister.get(host);
         assertTrue(actual.length >= 1);
+    }
+
+    // It throws on bad urls
+    public function testItThrowsOnBadUrls() {
+        assertThrows(function() { Lister.get("foo"); });
     }
 }

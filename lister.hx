@@ -18,6 +18,8 @@ class Lister {
 
     http.onError = function(err) {
       trace('ERROR: $err');
+
+      throw err;
     };
 
     http.request();
