@@ -7,20 +7,13 @@ class Lister {
     var hits = [];
 
     http.onData = function(resp) {
-      var rgx = ~/<img [^>]+src=([^ ]+) [^>]+/s;
+      //trace(resp);
+      var rgx = ~/<img[^>]+src=([^ >]+)/s;
 
       while (rgx.match(resp)) {
-        var hit = rgx.matched(1).replace('"', '').replace("'", "").trim();
-
-        if (!hit.startsWith(url))
-          hit = Path.join([url, hit]);
-
-        hits.push(hit);
-        trace(hit);
+        hits.push(clean(rgx.matched(1), url));
         resp = rgx.matchedRight();
       }
-
-      trace(hits.length);
     };
 
     http.onError = function(err) {
@@ -30,5 +23,14 @@ class Lister {
     http.request();
 
     return hits;
+  }
+
+  static function clean(hit:String, url:String):String {
+    hit = hit.replace('"', '').replace("'", "").trim();
+
+    if (!hit.startsWith(url))
+      hit = Path.join([url, hit]);
+
+    return hit;
   }
 }

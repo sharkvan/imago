@@ -13,10 +13,13 @@ class Lister_SysCmd {
     trace('Listing image urls found at location: $url');
     trace("---");
 
-    Lister.get(url);
+    var urls = Lister.get(url);
+
+    for (u in urls)
+      trace(u);
 
     trace("---");
     trace("Finished.");
-    //stdin().readLine();
+
   }
 }
