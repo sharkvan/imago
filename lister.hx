@@ -1,4 +1,5 @@
-//package haxe;
+import haxe.io.Path;
+using StringTools;
 
 class Lister {
   static public function get(url:String):Array<String> {
@@ -9,7 +10,11 @@ class Lister {
       var rgx = ~/<img [^>]+src=([^ ]+) [^>]+/s;
 
       while (rgx.match(resp)) {
-        var hit = rgx.matched(1);
+        var hit = rgx.matched(1).replace('"', '').replace("'", "").trim();
+
+        if (!hit.startsWith(url))
+          hit = Path.join([url, hit]);
+
         hits.push(hit);
         trace(hit);
         resp = rgx.matchedRight();
