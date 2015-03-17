@@ -5,7 +5,6 @@ class Lister_Sys {
 
   static public function main():Void {
 
-
     trace('Please provide a target url, or enter for default ($defaultUrl):');
     var input = stdin().readLine();
     var url = switch(input) { case "": defaultUrl; case _: input; }
