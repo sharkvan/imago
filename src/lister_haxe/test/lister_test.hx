@@ -22,11 +22,13 @@ class Lister_Test extends TestCase
         assertEquals(actual.indexOf("//"), -1);
     }
 
-    // It finds the Google daily logo
+    // It finds src attributes on legit img tags
     public function testItFindsImgs() {
-        var host = "http://www.google.com/";
-        var actual = Lister.get(host);
-        assertTrue(actual.length >= 1);
+        var html = "<html><blah><img src='a.png' /><img class='foo' src=b.png></img><img /></blah></html>";
+        var actual = Lister.findImgs(html, "http://www.example.com");
+        assertEquals(actual.length, 2);
+        assertEquals(actual[0], "http://www.example.com/a.png");
+        assertEquals(actual[1], "http://www.example.com/b.png");
     }
 
     // It throws on bad urls
