@@ -7,14 +7,8 @@ class Lister {
     var hits = [];
 
     http.onData = function(resp) {
-      //trace(resp);
-      var rgx = ~/<img[^>]+src=([^ >]+)/s;
-
-      while (rgx.match(resp)) {
-        hits.push(clean(rgx.matched(1), url));
-        resp = rgx.matchedRight();
-      }
-    };
+      hits = Lister.findImgs(resp, url);
+    }
 
     http.onError = function(err) {
       trace('ERROR: $err');
@@ -23,6 +17,18 @@ class Lister {
     };
 
     http.request();
+
+    return hits;
+  }
+
+  static public function findImgs(html:String, url:String):Array<String> {
+    var hits = [];
+    var rgx = ~/<img[^>]+src=([^ >]+)/s;
+
+    while (rgx.match(html)) {
+      hits.push(clean(rgx.matched(1), url));
+      html = rgx.matchedRight();
+    }
 
     return hits;
   }
