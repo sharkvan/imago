@@ -17,8 +17,8 @@ class Lister_Test extends TestCase
     // It ensures paths are clean
     @:access(Lister)
     public function testUrlsAreClean() {
-        var host = "http://www.example.com/";
-        var actual = Lister.clean("/a.png", host).replace("http://", "");
+        var host = "www.example.com/";
+        var actual = Lister.clean("/a.png", host);
         assertEquals(actual.indexOf("//"), -1);
     }
 
